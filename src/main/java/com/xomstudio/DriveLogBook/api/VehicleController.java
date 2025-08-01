@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "api/v1/vehicle")
@@ -23,8 +24,8 @@ public class VehicleController {
     }
 
     @GetMapping(path = "{vehicleId}")
-    public Vehicle getVehicleById(@PathVariable("vehicleId") Long vehicleId){
-        return vehicleService.getVehicles().get(Math.toIntExact(vehicleId));
+    public Optional<Vehicle> getVehicleById(@PathVariable("vehicleId") Long vehicleId){
+        return vehicleService.getVehicleById(vehicleId);
     }
 
     @PostMapping
