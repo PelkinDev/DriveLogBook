@@ -21,13 +21,27 @@ public class VehicleService {
         return vehicleRepository.findAll();
     }
 
+/*    public Optional<Vehicle> getVehicleById(Long vehicleId){
+        return vehicleRepository.findById(vehicleId);
+    }
+*/
+
+    public Optional<Vehicle> getVehicleById(Long vehicleId){
+        boolean vehicleOpt = vehicleRepository.existsById(vehicleId);
+        if(!vehicleOpt){
+            throw new IllegalStateException("vehicle with id " + vehicleId + " not exists.");
+        }
+        return vehicleRepository.findById(vehicleId);
+    }
+
+
+
     public void addNewVehicle(Vehicle vehicle){
         Optional<Vehicle> vehicleOptional = vehicleRepository.findVehicleByCarLicensePlate(vehicle.getCarLicensePlate());
         if(vehicleOptional.isPresent()){
             throw new IllegalStateException("the vehicle with this license plate already exists");
         }
         vehicleRepository.save(vehicle);
-        System.out.println(vehicle);
     }
 
     public void deleteVehicle(Long vehicleId){
