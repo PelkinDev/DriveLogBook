@@ -1,6 +1,6 @@
-package com.xomstudio.DriveLogBook.domain;
+package com.xomstudio.DriveLogBook.infrastructure;
 
-import com.xomstudio.DriveLogBook.api.Fuel;
+import com.xomstudio.DriveLogBook.infrastructure.Fuel;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -40,9 +40,6 @@ public class Vehicle {
 
     private Fuel petrol;
 
-
-    public Vehicle(){
-    }
 
     public Vehicle(String carLicensePlate, LocalDate firstRegistration, int mileage, String vin, String carBrand, String carModel, String carColor, int enginePower, Fuel petrol) {
         this.carLicensePlate = carLicensePlate;

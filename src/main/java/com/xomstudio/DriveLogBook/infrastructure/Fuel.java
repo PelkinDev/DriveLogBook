@@ -1,4 +1,4 @@
-package com.xomstudio.DriveLogBook.api;
+package com.xomstudio.DriveLogBook.infrastructure;
 
 public enum Fuel {
         GASOLINE,
