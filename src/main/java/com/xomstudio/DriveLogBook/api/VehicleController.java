@@ -22,6 +22,11 @@ public class VehicleController {
         return vehicleService.getVehicles();
     }
 
+    @GetMapping(path = "{vehicleId}")
+    public Vehicle getVehicleById(@PathVariable("vehicleId") Long vehicleId){
+        return vehicleService.getVehicles().get(Math.toIntExact(vehicleId));
+    }
+
     @PostMapping
     public void addNewVehicle(@RequestBody Vehicle vehicle){
         vehicleService.addNewVehicle(vehicle);
@@ -31,8 +36,5 @@ public class VehicleController {
     public void deleteVehicle(@PathVariable("vehicleId")Long vehicleId){
         vehicleService.deleteVehicle(vehicleId);
     }
-
-
-
 
 }
