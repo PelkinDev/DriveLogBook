@@ -17,9 +17,9 @@ public class VehicleConfig {
     @Bean
     CommandLineRunner commandLineRunner(VehicleRepository repository){
         return args -> {
-            Vehicle v1 = new Vehicle("FR-XM 188", LocalDate.of(2019, Month.DECEMBER, 22), 63000, Fuel.ELECTRO);
-            Vehicle v2 = new Vehicle("FR-OO 1234", LocalDate.of(2000, Month.JANUARY, 2), 463000, Fuel.DIESEL);
-            Vehicle v3 = new Vehicle("FR-QM 88",
+            Vehicle v1 = new Vehicle("FRO-AA 2188", LocalDate.of(2019, Month.DECEMBER, 22), 63000, Fuel.ELECTRO);
+            Vehicle v2 = new Vehicle("BOO-OO 1234", LocalDate.of(2000, Month.JANUARY, 2), 463000, Fuel.DIESEL);
+            Vehicle v3 = new Vehicle("MUU-QM 888",
                     LocalDate.of(2022, Month.OCTOBER, 12),
                     15,
                     "HONDA VIN",
