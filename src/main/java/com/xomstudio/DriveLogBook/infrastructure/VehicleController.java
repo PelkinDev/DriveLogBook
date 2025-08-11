@@ -1,5 +1,6 @@
-package com.xomstudio.DriveLogBook.api;
+package com.xomstudio.DriveLogBook.infrastructure;
 
+import com.xomstudio.DriveLogBook.api.VehicleService;
 import com.xomstudio.DriveLogBook.infrastructure.Vehicle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
