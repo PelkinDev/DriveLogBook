@@ -28,7 +28,7 @@ public class TestDataUtil {
 
     public static VehicleEntity createTestVehicleB() {
         return VehicleEntity.builder()
-                .id(1L)
+                .id(2L)
                 .carLicensePlate("M-OO 999")
                 .firstRegistration(LocalDate.of(2015, Month.JANUARY, 22))
                 .mileage(9000)
