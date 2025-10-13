@@ -1,6 +1,6 @@
 package com.xomstudio.DriveLogBook.api;
 
-import com.xomstudio.DriveLogBook.infrastructure.Vehicle;
+import com.xomstudio.DriveLogBook.infrastructure.entities.VehicleEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ public class VehicleService {
         this.vehicleRepository = vehicleRepository;
     }
 
-    public List<Vehicle> getVehicles(){
+    public List<VehicleEntity> getVehicles(){
         return vehicleRepository.findAll();
     }
 
@@ -26,7 +26,7 @@ public class VehicleService {
     }
 */
 
-    public Optional<Vehicle> getVehicleById(Long vehicleId){
+    public Optional<VehicleEntity> getVehicleById(Long vehicleId){
         boolean vehicleOpt = vehicleRepository.existsById(vehicleId);
         if(!vehicleOpt){
             throw new IllegalStateException("vehicle with id " + vehicleId + " not exists.");
@@ -36,8 +36,8 @@ public class VehicleService {
 
 
 
-    public void addNewVehicle(Vehicle vehicle){
-        Optional<Vehicle> vehicleOptional = vehicleRepository.findVehicleByCarLicensePlate(vehicle.getCarLicensePlate());
+    public void addNewVehicle(VehicleEntity vehicle){
+        Optional<VehicleEntity> vehicleOptional = vehicleRepository.findVehicleByCarLicensePlate(vehicle.getCarLicensePlate());
         if(vehicleOptional.isPresent()){
             throw new IllegalStateException("the vehicle with this license plate already exists");
         }

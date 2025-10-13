@@ -1,7 +1,7 @@
-package com.xomstudio.DriveLogBook.infrastructure;
+package com.xomstudio.DriveLogBook.domain;
 
 import com.xomstudio.DriveLogBook.api.VehicleService;
-import com.xomstudio.DriveLogBook.infrastructure.Vehicle;
+import com.xomstudio.DriveLogBook.infrastructure.entities.VehicleEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,17 +20,17 @@ public class VehicleController {
     }
 
     @GetMapping
-    public List<Vehicle> getVehicles(){
+    public List<VehicleEntity> getVehicles(){
         return vehicleService.getVehicles();
     }
 
     @GetMapping(path = "{vehicleId}")
-    public Optional<Vehicle> getVehicleById(@PathVariable("vehicleId") Long vehicleId){
+    public Optional<VehicleEntity> getVehicleById(@PathVariable("vehicleId") Long vehicleId){
         return vehicleService.getVehicleById(vehicleId);
     }
 
     @PostMapping
-    public void addNewVehicle(@RequestBody Vehicle vehicle){
+    public void addNewVehicle(@RequestBody VehicleEntity vehicle){
         vehicleService.addNewVehicle(vehicle);
     }
 
