@@ -1,7 +1,7 @@
-package com.xomstudio.DriveLogBook.repositories;
+package com.xomstudio.DriveLogBook;
 
 import com.xomstudio.DriveLogBook.infrastructure.Fuel;
-import com.xomstudio.DriveLogBook.infrastructure.entities.VehicleEntity;
+import com.xomstudio.DriveLogBook.infrastructure.entity.VehicleEntity;
 
 import java.time.LocalDate;
 import java.time.Month;
