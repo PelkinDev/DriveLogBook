@@ -35,7 +35,6 @@ public class VehicleService {
     }
 
 
-
     public void addNewVehicle(VehicleEntity vehicle){
         Optional<VehicleEntity> vehicleOptional = vehicleRepository.findVehicleByCarLicensePlate(vehicle.getCarLicensePlate());
         if(vehicleOptional.isPresent()){
