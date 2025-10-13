@@ -3,7 +3,7 @@ package com.xomstudio.DriveLogBook.domain;
 import com.xomstudio.DriveLogBook.api.VehicleService;
 import com.xomstudio.DriveLogBook.infrastructure.dto.VehicleDTO;
 import com.xomstudio.DriveLogBook.infrastructure.dto.VehicleMapper;
-import com.xomstudio.DriveLogBook.infrastructure.entities.VehicleEntity;
+import com.xomstudio.DriveLogBook.infrastructure.entity.VehicleEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

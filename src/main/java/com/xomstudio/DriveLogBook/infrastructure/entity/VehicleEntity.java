@@ -1,4 +1,4 @@
-package com.xomstudio.DriveLogBook.infrastructure.entities;
+package com.xomstudio.DriveLogBook.infrastructure.entity;
 
 import com.xomstudio.DriveLogBook.infrastructure.Fuel;
 import jakarta.persistence.*;

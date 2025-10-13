@@ -1,6 +1,6 @@
 package com.xomstudio.DriveLogBook.api;
 
-import com.xomstudio.DriveLogBook.infrastructure.entities.VehicleEntity;
+import com.xomstudio.DriveLogBook.infrastructure.entity.VehicleEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
