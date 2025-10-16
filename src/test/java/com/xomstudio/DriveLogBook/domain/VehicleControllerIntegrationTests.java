@@ -2,7 +2,7 @@ package com.xomstudio.DriveLogBook.domain;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.xomstudio.DriveLogBook.api.VehicleService;
+import com.xomstudio.DriveLogBook.api.VehicleServiceImpl;
 import com.xomstudio.DriveLogBook.infrastructure.entity.VehicleEntity;
 import com.xomstudio.DriveLogBook.TestDataUtil;
 import org.junit.jupiter.api.Test;
@@ -23,16 +23,16 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 @AutoConfigureMockMvc
 public class VehicleControllerIntegrationTests {
 
-    private VehicleService vehicleService;
+    private VehicleServiceImpl vehicleServiceImpl;
 
     private MockMvc mockMvc;
 
     private ObjectMapper objectMapper;
 
     @Autowired
-    public VehicleControllerIntegrationTests(MockMvc mockMvc, VehicleService vehicleService) {
+    public VehicleControllerIntegrationTests(MockMvc mockMvc, VehicleServiceImpl vehicleServiceImpl) {
         this.mockMvc = mockMvc;
-        this.vehicleService = vehicleService;
+        this.vehicleServiceImpl = vehicleServiceImpl;
         this.objectMapper = new ObjectMapper();
     }
 
