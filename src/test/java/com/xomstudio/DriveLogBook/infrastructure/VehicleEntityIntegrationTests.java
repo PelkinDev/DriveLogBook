@@ -29,7 +29,7 @@ public class VehicleEntityIntegrationTests {
     }
 
     @Test
-    public void VehicleCanBeCreatedAndRecalled(){
+    public void vehicleCanBeCreatedAndRecalled(){
         testVehicleA.setId(null);
         underTest.save(testVehicleA);
         Optional<VehicleEntity> result = underTest.findById(testVehicleA.getId());
@@ -39,7 +39,7 @@ public class VehicleEntityIntegrationTests {
 
 
     @Test
-    public void MultipleVehiclesCanBeCreatedAndRecalled() {
+    public void multipleVehiclesCanBeCreatedAndRecalled() {
         testVehicleA.setId(null);
         underTest.save(testVehicleA);
         testVehicleB.setId(null);
@@ -52,7 +52,7 @@ public class VehicleEntityIntegrationTests {
     }
 
     @Test
-    public void VehicleCaBeUpdated(){
+    public void vehicleCaBeUpdated(){
         testVehicleA.setCarLicensePlate("UPDATED");
         testVehicleA.setId(null);
         underTest.save(testVehicleA);
