@@ -11,6 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -28,27 +30,64 @@ public class VehicleEntityIntegrationTests {
 
     @Test
     public void VehicleCanBeCreatedAndRecalled(){
-        VehicleEntity vehicleEntity = TestDataUtil.createTestVehicleA();
-        vehicleEntity.setId(null);
-        underTest.save(vehicleEntity);
-        Optional<VehicleEntity> result = underTest.findById(vehicleEntity.getId());
+        testVehicleA.setId(null);
+        underTest.save(testVehicleA);
+        Optional<VehicleEntity> result = underTest.findById(testVehicleA.getId());
         assertThat(result).isPresent();
-        assertThat(result.get()).isEqualTo(vehicleEntity);
+        assertThat(result.get()).isEqualTo(testVehicleA);
     }
 
 
     @Test
     public void MultipleVehiclesCanBeCreatedAndRecalled() {
-        VehicleEntity vehicleEntityA = TestDataUtil.createTestVehicleA();
-        vehicleEntityA.setId(null);
-        underTest.save(vehicleEntityA);
-        VehicleEntity vehicleEntityB = TestDataUtil.createTestVehicleA();
-        vehicleEntityB.setId(null);
-        underTest.save(vehicleEntityB);
+        testVehicleA.setId(null);
+        underTest.save(testVehicleA);
+        testVehicleB.setId(null);
+        underTest.save(testVehicleB);
 
         Iterable<VehicleEntity> result = underTest.findAll();
         assertThat(result)
                 .hasSize(2).
-                containsExactly(vehicleEntityA, vehicleEntityB);
+                containsExactly(testVehicleA, testVehicleB);
     }
+
+    @Test
+    public void VehicleCaBeUpdated(){
+        testVehicleA.setCarLicensePlate("UPDATED");
+        testVehicleA.setId(null);
+        underTest.save(testVehicleA);
+        Optional<VehicleEntity> result = underTest.findById(testVehicleA.getId());
+        assertThat(result).isPresent();
+        assertThat(result.get()).isEqualTo(testVehicleA);
+
+    }
+
+
+
+    private VehicleEntity testVehicleA = VehicleEntity.builder()
+                .id(1L)
+                .carLicensePlate("Z-ZZ 111")
+                .firstRegistration(LocalDate.of(2015, Month.JUNE, 12))
+                .mileage(65536)
+                .vin("Jaguar VIN")
+                .carBrand("Jaguar")
+                .carModel("X-Type")
+                .carColor("Green")
+                .enginePower(299)
+                .petrol(Fuel.GASOLINE)
+                .build();
+
+    private VehicleEntity testVehicleB = VehicleEntity.builder()
+            .id(1L)
+            .carLicensePlate("B-BB 888")
+            .firstRegistration(LocalDate.of(2025, Month.FEBRUARY, 22))
+            .mileage(16384)
+            .vin("Benz VIN")
+            .carBrand("Mercedes")
+            .carModel("190E")
+            .carColor("Silver")
+            .enginePower(156)
+            .petrol(Fuel.GASOLINE)
+            .build();
+
 }
