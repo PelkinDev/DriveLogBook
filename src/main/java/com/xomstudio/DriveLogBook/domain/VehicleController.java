@@ -64,9 +64,9 @@ public class VehicleController {
 
 
     @DeleteMapping(path = "{vehicleId}")
-    public void deleteVehicle(@PathVariable("vehicleId")Long vehicleId){
+    public ResponseEntity deleteVehicle(@PathVariable("vehicleId")Long vehicleId){
         vehicleServiceImpl.deleteVehicle(vehicleId);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
 }
-
