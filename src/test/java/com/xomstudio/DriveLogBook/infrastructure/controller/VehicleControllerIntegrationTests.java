@@ -1,8 +1,8 @@
-package com.xomstudio.DriveLogBook.domain;
+package com.xomstudio.DriveLogBook.infrastructure.controller;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.xomstudio.DriveLogBook.api.VehicleServiceImpl;
+import com.xomstudio.DriveLogBook.infrastructure.VehicleServiceImpl;
 import com.xomstudio.DriveLogBook.infrastructure.entity.VehicleEntity;
 import com.xomstudio.DriveLogBook.TestDataUtil;
 import org.junit.jupiter.api.Test;

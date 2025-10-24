@@ -1,8 +1,8 @@
 package com.xomstudio.DriveLogBook.infrastructure;
 
 
-import com.xomstudio.DriveLogBook.TestDataUtil;
 import com.xomstudio.DriveLogBook.api.VehicleRepository;
+import com.xomstudio.DriveLogBook.domain.Fuel;
 import com.xomstudio.DriveLogBook.infrastructure.entity.VehicleEntity;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

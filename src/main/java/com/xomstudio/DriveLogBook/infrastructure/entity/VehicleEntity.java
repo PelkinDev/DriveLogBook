@@ -1,6 +1,6 @@
 package com.xomstudio.DriveLogBook.infrastructure.entity;
 
-import com.xomstudio.DriveLogBook.infrastructure.Fuel;
+import com.xomstudio.DriveLogBook.domain.Fuel;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;

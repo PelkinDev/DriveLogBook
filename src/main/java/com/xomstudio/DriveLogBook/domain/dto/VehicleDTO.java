@@ -1,6 +1,6 @@
-package com.xomstudio.DriveLogBook.infrastructure.dto;
+package com.xomstudio.DriveLogBook.domain.dto;
 
-import com.xomstudio.DriveLogBook.infrastructure.Fuel;
+import com.xomstudio.DriveLogBook.domain.Fuel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

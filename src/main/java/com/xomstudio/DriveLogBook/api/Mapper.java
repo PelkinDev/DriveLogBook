@@ -1,4 +1,4 @@
-package com.xomstudio.DriveLogBook.infrastructure.dto;
+package com.xomstudio.DriveLogBook.api;
 
 public interface Mapper<A, B> {
 

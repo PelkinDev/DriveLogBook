@@ -1,5 +1,7 @@
-package com.xomstudio.DriveLogBook.api;
+package com.xomstudio.DriveLogBook.infrastructure;
 
+import com.xomstudio.DriveLogBook.api.VehicleRepository;
+import com.xomstudio.DriveLogBook.api.VehicleService;
 import com.xomstudio.DriveLogBook.infrastructure.entity.VehicleEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class VehicleServiceImpl implements VehicleService{
+public class VehicleServiceImpl implements VehicleService {
 
     private final VehicleRepository vehicleRepository;
 
