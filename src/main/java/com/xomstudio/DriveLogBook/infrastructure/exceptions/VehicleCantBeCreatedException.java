@@ -1,9 +1,9 @@
 package com.xomstudio.DriveLogBook.infrastructure.exceptions;
 
-public class VehicleCantBeCreatedException extends Exception{
+public class VehicleCantBeCreatedException extends DriveLogException{
 
     public VehicleCantBeCreatedException() {
-        super("the vehicle with this license plate already exists");
+        super("Vehicle cant be created");
     }
 
     public VehicleCantBeCreatedException(String message) {

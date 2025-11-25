@@ -4,8 +4,7 @@ import com.xomstudio.DriveLogBook.infrastructure.VehicleServiceImpl;
 import com.xomstudio.DriveLogBook.domain.dto.VehicleDTO;
 import com.xomstudio.DriveLogBook.api.Mapper;
 import com.xomstudio.DriveLogBook.infrastructure.entity.VehicleEntity;
-import com.xomstudio.DriveLogBook.infrastructure.exceptions.VehicleCantBeCreatedException;
-import com.xomstudio.DriveLogBook.infrastructure.exceptions.VehicleNoExistsException;
+import com.xomstudio.DriveLogBook.infrastructure.exceptions.VehicleNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,16 +37,16 @@ public class VehicleController {
 
 
     @GetMapping(path = "{vehicleId}")
-    public Optional<VehicleEntity> getVehicleById(@PathVariable("vehicleId") Long vehicleId) throws VehicleNoExistsException {
+    public Optional<VehicleEntity> getVehicleById(@PathVariable("vehicleId") Long vehicleId){
         if(!vehicleServiceImpl.isExists(vehicleId)){
-            throw new VehicleNoExistsException("vehicle with id " + vehicleId + " not exists");
+//            throw new VehicleNotFoundException("vehicle with id " + vehicleId + " not exists");
         }
         return vehicleServiceImpl.getVehicleById(vehicleId);
     }
 
 
     @PostMapping
-    public ResponseEntity<VehicleDTO> addNewVehicles(@RequestBody VehicleDTO vehicleDTO) throws VehicleCantBeCreatedException {
+    public ResponseEntity<VehicleDTO> addNewVehicles(@RequestBody VehicleDTO vehicleDTO){
         VehicleEntity vehicleEntity = mapper.mapFromDTOToEntity(vehicleDTO);
         vehicleServiceImpl.addNewVehicle(vehicleEntity);
 //        VehicleEntity savedVehicleEntity = vehicleService.addNewVehicle(vehicleEntity);
@@ -55,10 +54,10 @@ public class VehicleController {
     }
 
     @PatchMapping(path = "{vehicleId}")
-    public ResponseEntity<VehicleDTO> partialUpdate(@PathVariable("vehicleId") Long vehicleId, @RequestBody VehicleDTO vehicleDTO) throws VehicleNoExistsException {
+    public ResponseEntity<VehicleDTO> partialUpdate(@PathVariable("vehicleId") Long vehicleId, @RequestBody VehicleDTO vehicleDTO){
 
         if(!vehicleServiceImpl.isExists(vehicleId)){
-            throw new VehicleNoExistsException("vehicle with id " + vehicleId + " not exists");
+            throw new VehicleNotFoundException("vehicle with id " + vehicleId + " not exists");
         }
 
         VehicleEntity vehicleEntity = mapper.mapFromDTOToEntity(vehicleDTO);
@@ -68,7 +67,7 @@ public class VehicleController {
 
 
     @DeleteMapping(path = "{vehicleId}")
-    public ResponseEntity deleteVehicle(@PathVariable("vehicleId")Long vehicleId) throws VehicleNoExistsException {
+    public ResponseEntity deleteVehicle(@PathVariable("vehicleId")Long vehicleId){
         vehicleServiceImpl.deleteVehicle(vehicleId);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }

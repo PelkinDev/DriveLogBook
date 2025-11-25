@@ -4,7 +4,7 @@ import com.xomstudio.DriveLogBook.api.VehicleRepository;
 import com.xomstudio.DriveLogBook.api.VehicleService;
 import com.xomstudio.DriveLogBook.infrastructure.entity.VehicleEntity;
 import com.xomstudio.DriveLogBook.infrastructure.exceptions.VehicleCantBeCreatedException;
-import com.xomstudio.DriveLogBook.infrastructure.exceptions.VehicleNoExistsException;
+import com.xomstudio.DriveLogBook.infrastructure.exceptions.VehicleNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,28 +33,28 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
 
-    public Optional<VehicleEntity> getVehicleById(Long vehicleId) throws VehicleNoExistsException {
+    public Optional<VehicleEntity> getVehicleById(Long vehicleId){
         boolean vehicleOpt = vehicleRepository.existsById(vehicleId);
         if(!vehicleOpt){
             log.warn("vehicle with ID: {} not exists", vehicleId);
-            throw new VehicleNoExistsException("vehicle with id " + vehicleId + " not exists");
+//            throw new VehicleNotFoundException("vehicle with id " + vehicleId + " not exists");
         }
         return vehicleRepository.findById(vehicleId);
     }
 
 
-    public void addNewVehicle(VehicleEntity vehicle) throws VehicleCantBeCreatedException {
+    public void addNewVehicle(VehicleEntity vehicle){
         Optional<VehicleEntity> vehicleOptional = vehicleRepository.findVehicleByCarLicensePlate(vehicle.getCarLicensePlate());
         if(vehicleOptional.isPresent()){
-            log.error("the vehicle with this license plate already exists");
+            log.error("the vehicle with this license plate already exists: {}", vehicle.getCarLicensePlate());
             throw new VehicleCantBeCreatedException("the vehicle with " + vehicle.getCarLicensePlate() + " license plate already exists");
         }
-        log.info("new vehicle was created");
+        log.info("new vehicle was created: {}", vehicle.getCarLicensePlate());
         vehicleRepository.save(vehicle);
     }
 
     @Override
-    public VehicleEntity partialUpdate(Long id, VehicleEntity vehicleEntity) throws VehicleNoExistsException {
+    public VehicleEntity partialUpdate(Long id, VehicleEntity vehicleEntity){
         vehicleEntity.setId(id);
 
         return vehicleRepository.findById(id).map(existingVehicle -> {
@@ -67,18 +67,17 @@ public class VehicleServiceImpl implements VehicleService {
             Optional.ofNullable(vehicleEntity.getCarColor()).ifPresent((existingVehicle::setCarColor));
             Optional.of(vehicleEntity.getEnginePower()).ifPresent((existingVehicle::setEnginePower));
             Optional.ofNullable(vehicleEntity.getPetrol()).ifPresent((existingVehicle::setPetrol));
-            log.info("Vehicle with ID: {} was changed", id);
+            log.info("Vehicle with ID: {} not found", id);
             return vehicleRepository.save(existingVehicle);
-//        }).orElseThrow(() -> new IllegalStateException("vehicle with id " + id + " not exists"));
-        }).orElseThrow(() -> new VehicleNoExistsException("vehicle with id " + id + " not exists_________"));
+        }).orElseThrow(() -> new VehicleNotFoundException());
     }
 
 
-    public void deleteVehicle(Long vehicleId) throws VehicleNoExistsException {
+    public void deleteVehicle(Long vehicleId){
         boolean vehicleExist = vehicleRepository.existsById(vehicleId);
         if(!vehicleExist){
             log.warn("Vehicle with ID: {} not exists", vehicleId);
-            throw new VehicleNoExistsException("vehicle with id " + vehicleId + " not exists");
+            throw new VehicleNotFoundException("vehicle with id " + vehicleId + " not exists");
         }
         log.info("Vehicle with ID: {} deleted", vehicleId);
         vehicleRepository.deleteById(vehicleId);
