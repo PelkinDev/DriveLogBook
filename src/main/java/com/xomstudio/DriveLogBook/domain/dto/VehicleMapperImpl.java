@@ -1,6 +1,5 @@
 package com.xomstudio.DriveLogBook.domain.dto;
 
-
 import com.xomstudio.DriveLogBook.api.Mapper;
 import com.xomstudio.DriveLogBook.infrastructure.entity.VehicleEntity;
 import org.modelmapper.ModelMapper;
