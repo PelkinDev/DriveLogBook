@@ -1,6 +1,7 @@
 package com.xomstudio.DriveLogBook.domain.dto;
 
 import com.xomstudio.DriveLogBook.domain.Trip;
+import com.xomstudio.DriveLogBook.infrastructure.entity.VehicleEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,5 +28,7 @@ public class DriveLogDTO {
     private int kilometersDriven;
 
     private Trip trip;
+
+    private VehicleEntity vehicleEntity;
 
 }

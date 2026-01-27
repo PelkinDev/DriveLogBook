@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "driveLogs")
+@Table(name = "drive_logs")
 public class DriveLogEntity {
 
     @Id
@@ -34,5 +34,9 @@ public class DriveLogEntity {
     private int kilometersDriven;
 
     private Trip trip;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "vehicle_id")
+    private VehicleEntity vehicleEntity;
 
 }
