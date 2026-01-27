@@ -1,10 +1,12 @@
 package com.xomstudio.DriveLogBook.infrastructure.controller;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.xomstudio.DriveLogBook.infrastructure.VehicleServiceImpl;
-import com.xomstudio.DriveLogBook.infrastructure.entity.VehicleEntity;
 import com.xomstudio.DriveLogBook.TestDataUtil;
+import com.xomstudio.DriveLogBook.api.Mapper;
+import com.xomstudio.DriveLogBook.api.VehicleRepository;
+import com.xomstudio.DriveLogBook.api.VehicleService;
+import com.xomstudio.DriveLogBook.domain.dto.VehicleDTO;
+import com.xomstudio.DriveLogBook.infrastructure.entity.VehicleEntity;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +16,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
@@ -23,33 +26,50 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 @AutoConfigureMockMvc
 public class VehicleControllerIntegrationTests {
 
-    private VehicleServiceImpl vehicleServiceImpl;
+    @Autowired
+    private VehicleService vehicleService;
+
+    @Autowired
+    private VehicleRepository vehicleRepository;
 
     private MockMvc mockMvc;
 
-    private ObjectMapper objectMapper;
+    private Mapper<VehicleEntity, VehicleDTO> mapper;
 
     @Autowired
-    public VehicleControllerIntegrationTests(MockMvc mockMvc, VehicleServiceImpl vehicleServiceImpl) {
+    public VehicleControllerIntegrationTests(MockMvc mockMvc, Mapper<VehicleEntity, VehicleDTO> mapper) {
         this.mockMvc = mockMvc;
-        this.vehicleServiceImpl = vehicleServiceImpl;
-        this.objectMapper = new ObjectMapper();
+        this.mapper = mapper;
     }
 
     @Test
-    public void CreateVehicleSuccessfullyReturnsHttp201Created() throws Exception{
+    public void shouldCreateOneVehicle() throws Exception {
+        VehicleDTO vehicleDto = mapper.mapFromEntityToDTO(TestDataUtil.createTestVehicleA());
+        vehicleDto.setId(null);
 
-        VehicleEntity testVehicleA = TestDataUtil.createTestVehicleA();
-        testVehicleA.setId(null);
-        testVehicleA.setFirstRegistration(null);
-        String vehicleJSON = objectMapper.writeValueAsString(testVehicleA);
+        String vehicleJSON = String.valueOf(vehicleDto);
 
+        mockMvc.perform(post("/api/v1/vehicle/")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(vehicleJSON))
+                .andExpect(status().isCreated());
 
-//        Achtung der test wird erst wenn VehicleDTO im Controller implementiert wurde
-        mockMvc.perform(
-                MockMvcRequestBuilders.post("/vehicles")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(vehicleJSON)
-                ).andExpect(MockMvcResultMatchers.status().isCreated());
     }
+
+//    void should_create_one_user() throws Exception {
+//        final File jsonFile = new ClassPathResource("init/user.json").getFile();
+//        final String userToCreate = Files.readString(jsonFile.toPath());
+//
+//        this.mockMvc.perform(post("/user/create")
+//                        .contentType(APPLICATION_JSON)
+//                        .content(userToCreate))
+//                .andDo(print())
+//                .andExpect(status().isCreated())
+//                .andExpect(jsonPath("$").isMap())
+//                .andExpect(jsonPath("$", aMapWithSize(3)));
+//
+//        assertThat(this.repository.findAll()).hasSize(6);
+//    }
+
+
 }
