@@ -3,7 +3,9 @@ package com.xomstudio.DriveLogBook.infrastructure.entity;
 import com.xomstudio.DriveLogBook.domain.Fuel;
 import jakarta.persistence.*;
 import lombok.*;
+
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -42,5 +44,8 @@ public class VehicleEntity {
     private int enginePower;
 
     private Fuel petrol;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<DriveLogEntity> driveLogEntities;
 
 }

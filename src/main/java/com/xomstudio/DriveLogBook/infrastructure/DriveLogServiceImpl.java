@@ -26,7 +26,7 @@ public class DriveLogServiceImpl implements DriveLogService {
         return driveLogRepository.existsById(id);
     }
 
-    @Override
+
     public List<DriveLogEntity> getDriveLogs() {
         return driveLogRepository.findAll();
     }

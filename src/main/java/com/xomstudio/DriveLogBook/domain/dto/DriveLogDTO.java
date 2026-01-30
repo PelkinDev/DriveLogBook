@@ -16,19 +16,26 @@ import java.time.LocalDateTime;
 public class DriveLogDTO {
 
     private Long id;
-
     private LocalDateTime driveStart;
-
     private LocalDateTime driveEnd;
-
     private int mileageAtStart;
-
     private int mileageAtEnd;
-
     private int kilometersDriven;
-
     private Trip trip;
-
     private VehicleEntity vehicleEntity;
 
 }
+
+
+/*
+{
+    "driveStart": "2007-12-03T10:15:30",
+    "driveEnd": "2007-12-03T10:20:00",
+    "mileageAtStart": 1000,
+    "mileageAtEnd": 10050,
+    "kilometersDriven": 50,
+    "trip": 1,
+    "vehicle_id": 1
+}
+
+ */

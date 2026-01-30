@@ -35,7 +35,7 @@ public class DriveLogEntity {
 
     private Trip trip;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "vehicle_id")
     private VehicleEntity vehicleEntity;
 
