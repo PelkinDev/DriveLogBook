@@ -2,6 +2,7 @@ package com.xomstudio.DriveLogBook.infrastructure;
 
 import com.xomstudio.DriveLogBook.api.VehicleRepository;
 import com.xomstudio.DriveLogBook.api.VehicleService;
+import com.xomstudio.DriveLogBook.infrastructure.entity.DriveLogEntity;
 import com.xomstudio.DriveLogBook.infrastructure.entity.VehicleEntity;
 import com.xomstudio.DriveLogBook.infrastructure.exceptions.VehicleCantBeCreatedException;
 import com.xomstudio.DriveLogBook.infrastructure.exceptions.VehicleNotFoundException;
@@ -82,6 +83,7 @@ public class VehicleServiceImpl implements VehicleService {
         log.info("Vehicle with ID: {} deleted", vehicleId);
         vehicleRepository.deleteById(vehicleId);
     }
+
 
 }
 

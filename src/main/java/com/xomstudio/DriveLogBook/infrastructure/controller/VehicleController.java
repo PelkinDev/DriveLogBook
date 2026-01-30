@@ -49,7 +49,6 @@ public class VehicleController {
     public ResponseEntity<VehicleDTO> addNewVehicles(@RequestBody VehicleDTO vehicleDTO){
         VehicleEntity vehicleEntity = mapper.mapFromDTOToEntity(vehicleDTO);
         vehicleServiceImpl.addNewVehicle(vehicleEntity);
-//        VehicleEntity savedVehicleEntity = vehicleService.addNewVehicle(vehicleEntity);
         return new ResponseEntity<>(mapper.mapFromEntityToDTO(vehicleEntity), HttpStatus.CREATED);
     }
 
@@ -71,5 +70,6 @@ public class VehicleController {
         vehicleServiceImpl.deleteVehicle(vehicleId);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
+
 
 }

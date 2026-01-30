@@ -25,17 +25,3 @@ public class DriveLogDTO {
     private VehicleEntity vehicleEntity;
 
 }
-
-
-/*
-{
-    "driveStart": "2007-12-03T10:15:30",
-    "driveEnd": "2007-12-03T10:20:00",
-    "mileageAtStart": 1000,
-    "mileageAtEnd": 10050,
-    "kilometersDriven": 50,
-    "trip": 1,
-    "vehicle_id": 1
-}
-
- */

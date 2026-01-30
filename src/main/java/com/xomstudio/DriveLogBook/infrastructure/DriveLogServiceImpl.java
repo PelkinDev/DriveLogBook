@@ -2,11 +2,16 @@ package com.xomstudio.DriveLogBook.infrastructure;
 
 import com.xomstudio.DriveLogBook.api.DriveLogRepository;
 import com.xomstudio.DriveLogBook.api.DriveLogService;
+import com.xomstudio.DriveLogBook.domain.dto.DriveLogDTO;
 import com.xomstudio.DriveLogBook.infrastructure.entity.DriveLogEntity;
+import com.xomstudio.DriveLogBook.infrastructure.entity.VehicleEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -29,6 +34,14 @@ public class DriveLogServiceImpl implements DriveLogService {
 
     public List<DriveLogEntity> getDriveLogs() {
         return driveLogRepository.findAll();
+    }
+
+    @Override
+    public List<DriveLogEntity> getAllDriveLogsFromOneVehicle(Long vehicleId) {
+
+        List<DriveLogEntity> result = driveLogRepository.findAll();
+
+        return result;
     }
 
     @Override
