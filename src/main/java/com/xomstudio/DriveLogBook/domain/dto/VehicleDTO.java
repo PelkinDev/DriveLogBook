@@ -27,6 +27,6 @@ public class VehicleDTO {
     private int enginePower;
     private Fuel petrol;
 
-    private List<DriveLogEntity> driveLogEntities;
+//    private List<DriveLogEntity> driveLogEntities;
 
 }

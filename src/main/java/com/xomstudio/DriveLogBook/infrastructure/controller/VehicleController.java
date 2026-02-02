@@ -35,7 +35,6 @@ public class VehicleController {
                 .collect(Collectors.toList());
     }
 
-
     @GetMapping(path = "{vehicleId}")
     public Optional<VehicleEntity> getVehicleById(@PathVariable("vehicleId") Long vehicleId){
         if(!vehicleServiceImpl.isExists(vehicleId)){
@@ -43,7 +42,6 @@ public class VehicleController {
         }
         return vehicleServiceImpl.getVehicleById(vehicleId);
     }
-
 
     @PostMapping
     public ResponseEntity<VehicleDTO> addNewVehicles(@RequestBody VehicleDTO vehicleDTO){
@@ -64,12 +62,10 @@ public class VehicleController {
         return new ResponseEntity<>(mapper.mapFromEntityToDTO(updatedVehicle), HttpStatus.OK);
     }
 
-
     @DeleteMapping(path = "{vehicleId}")
     public ResponseEntity deleteVehicle(@PathVariable("vehicleId")Long vehicleId){
         vehicleServiceImpl.deleteVehicle(vehicleId);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
-
 
 }

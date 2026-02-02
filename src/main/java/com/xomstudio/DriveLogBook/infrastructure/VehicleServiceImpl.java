@@ -33,7 +33,6 @@ public class VehicleServiceImpl implements VehicleService {
         return vehicleRepository.findAll();
     }
 
-
     public Optional<VehicleEntity> getVehicleById(Long vehicleId){
         boolean vehicleOpt = vehicleRepository.existsById(vehicleId);
         if(!vehicleOpt){
@@ -43,12 +42,11 @@ public class VehicleServiceImpl implements VehicleService {
         return vehicleRepository.findById(vehicleId);
     }
 
-
     public void addNewVehicle(VehicleEntity vehicle){
         Optional<VehicleEntity> vehicleOptional = vehicleRepository.findVehicleByCarLicensePlate(vehicle.getCarLicensePlate());
         if(vehicleOptional.isPresent()){
             log.error("the vehicle with this license plate already exists: {}", vehicle.getCarLicensePlate());
-            throw new VehicleCantBeCreatedException("the vehicle with " + vehicle.getCarLicensePlate() + " license plate already exists");
+//            throw new VehicleCantBeCreatedException("the vehicle with " + vehicle.getCarLicensePlate() + " license plate already exists");
         }
         log.info("new vehicle was created: {}", vehicle.getCarLicensePlate());
         vehicleRepository.save(vehicle);
@@ -73,17 +71,15 @@ public class VehicleServiceImpl implements VehicleService {
         }).orElseThrow(() -> new VehicleNotFoundException());
     }
 
-
     public void deleteVehicle(Long vehicleId){
         boolean vehicleExist = vehicleRepository.existsById(vehicleId);
         if(!vehicleExist){
             log.warn("Vehicle with ID: {} not exists", vehicleId);
-            throw new VehicleNotFoundException("vehicle with id " + vehicleId + " not exists");
+//            throw new VehicleNotFoundException("vehicle with id " + vehicleId + " not exists");
         }
         log.info("Vehicle with ID: {} deleted", vehicleId);
         vehicleRepository.deleteById(vehicleId);
     }
-
 
 }
 

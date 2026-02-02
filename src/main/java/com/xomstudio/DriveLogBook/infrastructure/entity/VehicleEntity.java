@@ -45,7 +45,7 @@ public class VehicleEntity {
 
     private Fuel petrol;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<DriveLogEntity> driveLogEntities;
+//    @OneToMany(cascade = CascadeType.ALL)
+//    private List<DriveLogEntity> driveLogEntities;
 
 }
