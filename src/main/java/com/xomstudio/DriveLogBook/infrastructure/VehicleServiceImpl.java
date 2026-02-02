@@ -2,9 +2,7 @@ package com.xomstudio.DriveLogBook.infrastructure;
 
 import com.xomstudio.DriveLogBook.api.VehicleRepository;
 import com.xomstudio.DriveLogBook.api.VehicleService;
-import com.xomstudio.DriveLogBook.infrastructure.entity.DriveLogEntity;
 import com.xomstudio.DriveLogBook.infrastructure.entity.VehicleEntity;
-import com.xomstudio.DriveLogBook.infrastructure.exceptions.VehicleCantBeCreatedException;
 import com.xomstudio.DriveLogBook.infrastructure.exceptions.VehicleNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

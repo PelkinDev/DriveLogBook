@@ -9,7 +9,7 @@ import java.util.Optional;
 @Repository
 public interface VehicleRepository extends JpaRepository<VehicleEntity, Long> {
 
-//        @Query("SELECT s FROM Vehilcle s WHERE s.carLicensePlate = ?1")
+//        @Query("SELECT s FROM Vehicle s WHERE s.carLicensePlate = ?1")
     Optional<VehicleEntity> findVehicleByCarLicensePlate(String carLicensePlate);
 
 

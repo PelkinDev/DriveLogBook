@@ -3,7 +3,6 @@ package com.xomstudio.DriveLogBook.infrastructure.controller;
 import com.xomstudio.DriveLogBook.api.Mapper;
 import com.xomstudio.DriveLogBook.domain.dto.DriveLogDTO;
 import com.xomstudio.DriveLogBook.infrastructure.DriveLogServiceImpl;
-import com.xomstudio.DriveLogBook.infrastructure.VehicleServiceImpl;
 import com.xomstudio.DriveLogBook.infrastructure.entity.DriveLogEntity;
 import com.xomstudio.DriveLogBook.infrastructure.entity.VehicleEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,17 +18,16 @@ import java.util.stream.Collectors;
 public class DriveLogController {
 
     private final DriveLogServiceImpl driveLogServiceImpl;
-    private final VehicleServiceImpl vehicleServiceImpl;
 
-    private Mapper<DriveLogEntity, DriveLogDTO> mapper;
+    private final Mapper<DriveLogEntity, DriveLogDTO> mapper;
 
 
     @Autowired
-    public DriveLogController(DriveLogServiceImpl driveLogServiceImpl, VehicleServiceImpl vehicleServiceImpl, Mapper<DriveLogEntity, DriveLogDTO> mapper) {
+    public DriveLogController(DriveLogServiceImpl driveLogServiceImpl, Mapper<DriveLogEntity, DriveLogDTO> mapper) {
         this.driveLogServiceImpl = driveLogServiceImpl;
-        this.vehicleServiceImpl = vehicleServiceImpl;
         this.mapper = mapper;
     }
+
 
     @GetMapping(path = "/driveLog")
     public List<DriveLogDTO> getDriveLogs(){

@@ -1,6 +1,5 @@
 package com.xomstudio.DriveLogBook.infrastructure.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.xomstudio.DriveLogBook.domain.Trip;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

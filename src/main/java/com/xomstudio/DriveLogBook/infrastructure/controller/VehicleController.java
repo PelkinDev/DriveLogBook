@@ -19,13 +19,15 @@ import java.util.stream.Collectors;
 public class VehicleController {
 
     private final VehicleServiceImpl vehicleServiceImpl;
-    private Mapper<VehicleEntity, VehicleDTO> mapper;
+    private final Mapper<VehicleEntity, VehicleDTO> mapper;
+
 
     @Autowired
     public VehicleController(VehicleServiceImpl vehicleServiceImpl, Mapper<VehicleEntity, VehicleDTO> mapper) {
         this.vehicleServiceImpl = vehicleServiceImpl;
         this.mapper = mapper;
     }
+
 
     @GetMapping
     public List<VehicleDTO> getVehicles(){
@@ -38,7 +40,7 @@ public class VehicleController {
     @GetMapping(path = "{vehicleId}")
     public Optional<VehicleEntity> getVehicleById(@PathVariable("vehicleId") Long vehicleId){
         if(!vehicleServiceImpl.isExists(vehicleId)){
-//            throw new VehicleNotFoundException("vehicle with id " + vehicleId + " not exists");
+            throw new VehicleNotFoundException("vehicle with id " + vehicleId + " not exists");
         }
         return vehicleServiceImpl.getVehicleById(vehicleId);
     }
