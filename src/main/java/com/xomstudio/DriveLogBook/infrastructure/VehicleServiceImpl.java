@@ -32,10 +32,10 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     public Optional<VehicleEntity> getVehicleById(Long vehicleId){
-        boolean vehicleOpt = vehicleRepository.existsById(vehicleId);
-        if(!vehicleOpt){
+        boolean vehicleOptional = vehicleRepository.existsById(vehicleId);
+        if(!vehicleOptional){
             log.warn("vehicle with ID: {} not exists", vehicleId);
-//            throw new VehicleNotFoundException("vehicle with id " + vehicleId + " not exists");
+            throw new VehicleNotFoundException("vehicle with id " + vehicleId + " not exists");
         }
         return vehicleRepository.findById(vehicleId);
     }
