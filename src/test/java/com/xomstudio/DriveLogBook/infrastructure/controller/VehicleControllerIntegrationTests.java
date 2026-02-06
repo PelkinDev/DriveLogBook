@@ -121,30 +121,6 @@ public class VehicleControllerIntegrationTests {
         ).andExpect(MockMvcResultMatchers.status().isOk());
     }
 
-
-
-//    @Test
-//    public void testThatFullUpdateUpdatesExistingAuthor() throws Exception {
-//        AuthorEntity testAuthorEntityA = TestDataUtil.createTestAuthorEntityA();
-//        AuthorEntity savedAuthor = authorService.save(testAuthorEntityA);
-//
-//        AuthorEntity authorDto = TestDataUtil.createTestAuthorB();
-//        authorDto.setId(savedAuthor.getId());
-//
-//        String authorDtoUpdateJson = objectMapper.writeValueAsString(authorDto);
-//
-//        mockMvc.perform(
-//                MockMvcRequestBuilders.put("/authors/" + savedAuthor.getId())
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content(authorDtoUpdateJson)
-//        ).andExpect(
-//                MockMvcResultMatchers.jsonPath("$.id").value(savedAuthor.getId())
-//        ).andExpect(
-//                MockMvcResultMatchers.jsonPath("$.name").value(authorDto.getName())
-//        ).andExpect(
-//                MockMvcResultMatchers.jsonPath("$.age").value(authorDto.getAge())
-//        );
-//    }
     @Test
     public void partialUpdateUpdatedVehicle() throws Exception{
         testVehicleEntityA.setId(null);
@@ -166,10 +142,6 @@ public class VehicleControllerIntegrationTests {
         );
 
     }
-
-
-
-
 
 
     private VehicleDTO testVehicleDtoA = VehicleDTO.builder()
