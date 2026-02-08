@@ -29,7 +29,7 @@ public class DriveLogController {
     }
 
 
-    @GetMapping(path = "/driveLog")
+    @GetMapping(path = "/driveLogs")
     public List<DriveLogDTO> getDriveLogs(){
         List<DriveLogEntity> driveLogs = driveLogServiceImpl.getDriveLogs();
         return driveLogs.stream()
@@ -37,7 +37,7 @@ public class DriveLogController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping(path = "/vehicles/{vehicleId}/driveLog")
+    @GetMapping(path = "/vehicles/{vehicleId}/driveLogs")
     public List<DriveLogDTO> getAllDriveLogsFromOneVehicle(@PathVariable("vehicleId") Long vehicleId){
         List<DriveLogEntity> driveLogs = driveLogServiceImpl.getAllDriveLogsFromOneVehicle(vehicleId);
         return driveLogs.stream()
@@ -52,7 +52,7 @@ public class DriveLogController {
 //        return new ResponseEntity<>(mapper.mapFromEntityToDTO(driveLogEntity), HttpStatus.CREATED);
 //    }
 
-    @PostMapping(path = "/vehicles/{vehicleId}/driveLog")
+    @PostMapping(path = "/vehicles/{vehicleId}/driveLogs")
     public ResponseEntity<DriveLogDTO> addNewDriveLog(@PathVariable("vehicleId") Long vehicleId, @RequestBody DriveLogDTO driveLogDTO){
 //        pathvariable to save right Key vehicle to drivelog
         VehicleEntity vehicleEntity = driveLogDTO.getVehicleEntity();
