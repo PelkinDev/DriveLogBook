@@ -15,7 +15,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping(path = "api/v1/vehicle")
+@RequestMapping(path = "api/v1/vehicles")
 public class VehicleController {
 
     private final VehicleServiceImpl vehicleServiceImpl;

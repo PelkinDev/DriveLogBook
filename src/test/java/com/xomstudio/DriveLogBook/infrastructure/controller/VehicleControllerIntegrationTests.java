@@ -50,7 +50,7 @@ public class VehicleControllerIntegrationTests {
         String vehicleJson = objectMapper.writeValueAsString(testVehicleEntityA);
 
         mockMvc.perform(
-                MockMvcRequestBuilders.post("/api/v1/vehicle")
+                MockMvcRequestBuilders.post("/api/v1/vehicles")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(vehicleJson)
         ).andExpect(MockMvcResultMatchers.status().isCreated());
@@ -62,7 +62,7 @@ public class VehicleControllerIntegrationTests {
         String vehicleJson = objectMapper.writeValueAsString(testVehicleDtoA);
 
         mockMvc.perform(
-                MockMvcRequestBuilders.post("/api/v1/vehicle")
+                MockMvcRequestBuilders.post("/api/v1/vehicles")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(vehicleJson)
         ).andExpect(
@@ -77,7 +77,7 @@ public class VehicleControllerIntegrationTests {
     @Test
     public void vehiclesListReturnsHttpStatus200() throws Exception {
         mockMvc.perform(
-                MockMvcRequestBuilders.get("/api/v1/vehicle")
+                MockMvcRequestBuilders.get("/api/v1/vehicles")
                         .contentType(MediaType.APPLICATION_JSON)
         ).andExpect(MockMvcResultMatchers.status().isOk());
     }
@@ -87,7 +87,7 @@ public class VehicleControllerIntegrationTests {
         testVehicleEntityA.setId(null);
         vehicleService.addNewVehicle(testVehicleEntityA);
         mockMvc.perform(
-                MockMvcRequestBuilders.get("/api/v1/vehicle")
+                MockMvcRequestBuilders.get("/api/v1/vehicles")
                         .contentType(MediaType.APPLICATION_JSON)
         ).andExpect(
                 MockMvcResultMatchers.jsonPath("$[0].id").isNumber()
@@ -103,7 +103,7 @@ public class VehicleControllerIntegrationTests {
         testVehicleEntityA.setId(null);
         vehicleService.addNewVehicle(testVehicleEntityA);
         mockMvc.perform(
-                MockMvcRequestBuilders.get("/api/v1/vehicle/1")
+                MockMvcRequestBuilders.get("/api/v1/vehicles/1")
                         .contentType(MediaType.APPLICATION_JSON)
         ).andExpect(MockMvcResultMatchers.status().isOk());
     }
@@ -115,7 +115,7 @@ public class VehicleControllerIntegrationTests {
         String vehicleJson = objectMapper.writeValueAsString(testVehicleDtoA);
 
         mockMvc.perform(
-                MockMvcRequestBuilders.patch("/api/v1/vehicle/" + testVehicleEntityA.getId())
+                MockMvcRequestBuilders.patch("/api/v1/vehicles/" + testVehicleEntityA.getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(vehicleJson)
         ).andExpect(MockMvcResultMatchers.status().isOk());
@@ -130,7 +130,7 @@ public class VehicleControllerIntegrationTests {
         String vehicleDtoUpJson = objectMapper.writeValueAsString(testVehicleDtoA);
 
         mockMvc.perform(
-                MockMvcRequestBuilders.patch("/api/v1/vehicle/" + testVehicleEntityA.getId())
+                MockMvcRequestBuilders.patch("/api/v1/vehicles/" + testVehicleEntityA.getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(vehicleDtoUpJson)
         ).andExpect(
