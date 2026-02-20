@@ -37,13 +37,23 @@ public class VehicleController {
                 .collect(Collectors.toList());
     }
 
+//    @GetMapping(path = "{vehicleId}")
+//    public Optional<VehicleEntity> getVehicleById(@PathVariable("vehicleId") Long vehicleId){
+//        if(!vehicleServiceImpl.isExists(vehicleId)){
+//            throw new VehicleNotFoundException("vehicle with id " + vehicleId + " not exists");
+//        }
+//        return vehicleServiceImpl.getVehicleById(vehicleId);
+//    }
+
     @GetMapping(path = "{vehicleId}")
-    public Optional<VehicleEntity> getVehicleById(@PathVariable("vehicleId") Long vehicleId){
-        if(!vehicleServiceImpl.isExists(vehicleId)){
-            throw new VehicleNotFoundException("vehicle with id " + vehicleId + " not exists");
-        }
-        return vehicleServiceImpl.getVehicleById(vehicleId);
+    public ResponseEntity<VehicleDTO> getVehicleById(@PathVariable("vehicleId") Long vehicleId){
+        Optional<VehicleEntity> foundVehicle = vehicleServiceImpl.getVehicleById(vehicleId);
+        return foundVehicle.map(vehicleEntity -> {
+            VehicleDTO vehicleDTO = mapper.mapFromEntityToDTO(vehicleEntity);
+            return new ResponseEntity<>(vehicleDTO, HttpStatus.OK);
+        }).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+
 
     @PostMapping
     public ResponseEntity<VehicleDTO> addNewVehicles(@RequestBody VehicleDTO vehicleDTO){
