@@ -3,6 +3,7 @@ package com.xomstudio.DriveLogBook.infrastructure;
 import com.xomstudio.DriveLogBook.api.VehicleRepository;
 import com.xomstudio.DriveLogBook.api.VehicleService;
 import com.xomstudio.DriveLogBook.infrastructure.entity.VehicleEntity;
+import com.xomstudio.DriveLogBook.infrastructure.exceptions.VehicleCantBeCreatedException;
 import com.xomstudio.DriveLogBook.infrastructure.exceptions.VehicleNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,10 +42,11 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     public void addNewVehicle(VehicleEntity vehicle){
+        VehicleValidation.valideVehicle(vehicle);
         Optional<VehicleEntity> vehicleOptional = vehicleRepository.findVehicleByCarLicensePlate(vehicle.getCarLicensePlate());
         if(vehicleOptional.isPresent()){
             log.error("the vehicle with this license plate already exists: {}", vehicle.getCarLicensePlate());
-//            throw new VehicleCantBeCreatedException("the vehicle with " + vehicle.getCarLicensePlate() + " license plate already exists");
+            throw new VehicleCantBeCreatedException("the vehicle with " + vehicle.getCarLicensePlate() + " license plate already exists");
         }
         log.info("new vehicle was created: {}", vehicle.getCarLicensePlate());
         vehicleRepository.save(vehicle);
@@ -53,6 +55,7 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     public VehicleEntity partialUpdate(Long id, VehicleEntity vehicleEntity){
         vehicleEntity.setId(id);
+        VehicleValidation.valideVehicle(vehicleEntity);
 
         return vehicleRepository.findById(id).map(existingVehicle -> {
             Optional.ofNullable(vehicleEntity.getCarLicensePlate()).ifPresent((existingVehicle::setCarLicensePlate));
