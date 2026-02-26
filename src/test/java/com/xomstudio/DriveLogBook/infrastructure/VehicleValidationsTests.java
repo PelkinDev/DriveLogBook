@@ -1,6 +1,6 @@
 package com.xomstudio.DriveLogBook.infrastructure;
 
-import com.xomstudio.DriveLogBook.api.VehicleRepository;
+import com.xomstudio.DriveLogBook.infrastructure.persistance.VehicleJPARepository;
 import com.xomstudio.DriveLogBook.domain.Fuel;
 import com.xomstudio.DriveLogBook.domain.dto.VehicleDTO;
 import com.xomstudio.DriveLogBook.infrastructure.exceptions.VehicleValidateException;
@@ -21,10 +21,10 @@ import static org.assertj.core.api.Assertions.fail;
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class VehicleValidationsTests {
 
-    private VehicleRepository underTest;
+    private VehicleJPARepository underTest;
 
     @Autowired
-    public VehicleValidationsTests(VehicleRepository underTest) {
+    public VehicleValidationsTests(VehicleJPARepository underTest) {
         this.underTest = underTest;
     }
 

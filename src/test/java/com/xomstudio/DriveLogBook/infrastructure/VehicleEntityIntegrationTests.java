@@ -1,7 +1,7 @@
 package com.xomstudio.DriveLogBook.infrastructure;
 
 
-import com.xomstudio.DriveLogBook.api.VehicleRepository;
+import com.xomstudio.DriveLogBook.infrastructure.persistance.VehicleJPARepository;
 import com.xomstudio.DriveLogBook.domain.Fuel;
 import com.xomstudio.DriveLogBook.infrastructure.persistance.VehicleEntity;
 import org.junit.jupiter.api.Test;
@@ -21,10 +21,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class VehicleEntityIntegrationTests {
 
-    private VehicleRepository underTest;
+    private VehicleJPARepository underTest;
 
     @Autowired
-    public VehicleEntityIntegrationTests(VehicleRepository underTest) {
+    public VehicleEntityIntegrationTests(VehicleJPARepository underTest) {
         this.underTest = underTest;
     }
 

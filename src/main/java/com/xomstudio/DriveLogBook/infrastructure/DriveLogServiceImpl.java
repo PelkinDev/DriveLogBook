@@ -1,8 +1,8 @@
 package com.xomstudio.DriveLogBook.infrastructure;
 
-import com.xomstudio.DriveLogBook.api.DriveLogRepository;
+import com.xomstudio.DriveLogBook.infrastructure.persistance.DriveLogJPARepository;
 import com.xomstudio.DriveLogBook.api.DriveLogService;
-import com.xomstudio.DriveLogBook.api.VehicleRepository;
+import com.xomstudio.DriveLogBook.infrastructure.persistance.VehicleJPARepository;
 import com.xomstudio.DriveLogBook.infrastructure.persistance.DriveLogEntity;
 import com.xomstudio.DriveLogBook.infrastructure.exceptions.VehicleNotFoundException;
 import lombok.extern.slf4j.Slf4j;
@@ -15,43 +15,43 @@ import java.util.List;
 @Service
 public class DriveLogServiceImpl implements DriveLogService {
 
-    private final DriveLogRepository driveLogRepository;
-    private final VehicleRepository vehicleRepository;
+    private final DriveLogJPARepository driveLogJPARepository;
+    private final VehicleJPARepository vehicleJPARepository;
 
     @Autowired
-    public DriveLogServiceImpl(DriveLogRepository driveLogRepository, VehicleRepository vehicleRepository) {
-        this.driveLogRepository = driveLogRepository;
-        this.vehicleRepository = vehicleRepository;
+    public DriveLogServiceImpl(DriveLogJPARepository driveLogJPARepository, VehicleJPARepository vehicleJPARepository) {
+        this.driveLogJPARepository = driveLogJPARepository;
+        this.vehicleJPARepository = vehicleJPARepository;
     }
 
     @Override
     public boolean isExists(Long id) {
-        return driveLogRepository.existsById(id);
+        return driveLogJPARepository.existsById(id);
     }
 
     public List<DriveLogEntity> getDriveLogs() {
-        return driveLogRepository.findAll();
+        return driveLogJPARepository.findAll();
     }
 
     @Override
     public List<DriveLogEntity> getAllDriveLogsFromOneVehicle(Long vehicleId) {
-        return driveLogRepository.findAllByVehicleId(vehicleId);
+        return driveLogJPARepository.findAllByVehicleId(vehicleId);
     }
 
     @Override
     public void addNewDriveLog(DriveLogEntity driveLogEntity) {
-        boolean vehicleOptional = vehicleRepository.existsById(driveLogEntity.getVehicleEntity().getId());
+        boolean vehicleOptional = vehicleJPARepository.existsById(driveLogEntity.getVehicleEntity().getId());
         if(!vehicleOptional){
             log.warn("vehicle with ID: {} not exists", driveLogEntity.getVehicleEntity().getId());
             throw new VehicleNotFoundException("vehicle with id " + driveLogEntity.getVehicleEntity().getId() + " not exists");
         }
         log.info("new drive log was created.");
-        driveLogRepository.save(driveLogEntity);
+        driveLogJPARepository.save(driveLogEntity);
     }
 
     @Override
     public void deleteDriveLog(Long id) {
         log.info("drive log was deleted");
-        driveLogRepository.deleteById(id);
+        driveLogJPARepository.deleteById(id);
     }
 }

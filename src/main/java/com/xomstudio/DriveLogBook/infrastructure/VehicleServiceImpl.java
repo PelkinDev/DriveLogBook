@@ -1,6 +1,6 @@
 package com.xomstudio.DriveLogBook.infrastructure;
 
-import com.xomstudio.DriveLogBook.api.VehicleRepository;
+import com.xomstudio.DriveLogBook.infrastructure.persistance.VehicleJPARepository;
 import com.xomstudio.DriveLogBook.api.VehicleService;
 import com.xomstudio.DriveLogBook.infrastructure.persistance.VehicleEntity;
 import com.xomstudio.DriveLogBook.infrastructure.exceptions.VehicleCantBeCreatedException;
@@ -16,46 +16,46 @@ import java.util.Optional;
 @Service
 public class VehicleServiceImpl implements VehicleService {
 
-    private final VehicleRepository vehicleRepository;
+    private final VehicleJPARepository vehicleJPARepository;
 
     @Autowired
-    public VehicleServiceImpl(VehicleRepository vehicleRepository) {
-        this.vehicleRepository = vehicleRepository;
+    public VehicleServiceImpl(VehicleJPARepository vehicleJPARepository) {
+        this.vehicleJPARepository = vehicleJPARepository;
     }
 
     @Override
     public boolean isExists(Long id) {
-        return vehicleRepository.existsById(id);
+        return vehicleJPARepository.existsById(id);
     }
 
     public List<VehicleEntity> getVehicles(){
-        return vehicleRepository.findAll();
+        return vehicleJPARepository.findAll();
     }
 
     public Optional<VehicleEntity> getVehicleById(Long vehicleId){
-        boolean vehicleOptional = vehicleRepository.existsById(vehicleId);
+        boolean vehicleOptional = vehicleJPARepository.existsById(vehicleId);
         if(!vehicleOptional){
             log.warn("vehicle with ID: {} not exists", vehicleId);
 //            throw new VehicleNotFoundException("vehicle with id " + vehicleId + " not exists");
         }
-        return vehicleRepository.findById(vehicleId);
+        return vehicleJPARepository.findById(vehicleId);
     }
 
     public void addNewVehicle(VehicleEntity vehicle){
-        Optional<VehicleEntity> vehicleOptional = vehicleRepository.findVehicleByCarLicensePlate(vehicle.getCarLicensePlate());
+        Optional<VehicleEntity> vehicleOptional = vehicleJPARepository.findVehicleByCarLicensePlate(vehicle.getCarLicensePlate());
         if(vehicleOptional.isPresent()){
             log.error("the vehicle with this license plate already exists: {}", vehicle.getCarLicensePlate());
             throw new VehicleCantBeCreatedException("the vehicle with " + vehicle.getCarLicensePlate() + " license plate already exists");
         }
         log.info("new vehicle was created: {}", vehicle.getCarLicensePlate());
-        vehicleRepository.save(vehicle);
+        vehicleJPARepository.save(vehicle);
     }
 
     @Override
     public VehicleEntity partialUpdate(Long id, VehicleEntity vehicleEntity){
         vehicleEntity.setId(id);
 
-        return vehicleRepository.findById(id).map(existingVehicle -> {
+        return vehicleJPARepository.findById(id).map(existingVehicle -> {
             Optional.ofNullable(vehicleEntity.getCarLicensePlate()).ifPresent((existingVehicle::setCarLicensePlate));
             Optional.ofNullable(vehicleEntity.getFirstRegistration()).ifPresent((existingVehicle::setFirstRegistration));
             Optional.of(vehicleEntity.getMileage()).ifPresent((existingVehicle::setMileage));
@@ -66,18 +66,18 @@ public class VehicleServiceImpl implements VehicleService {
             Optional.of(vehicleEntity.getEnginePower()).ifPresent((existingVehicle::setEnginePower));
             Optional.ofNullable(vehicleEntity.getPetrol()).ifPresent((existingVehicle::setPetrol));
             log.info("Vehicle with ID: {} not found", id);
-            return vehicleRepository.save(existingVehicle);
+            return vehicleJPARepository.save(existingVehicle);
         }).orElseThrow(() -> new VehicleNotFoundException());
     }
 
     public void deleteVehicle(Long vehicleId){
-        boolean vehicleExist = vehicleRepository.existsById(vehicleId);
+        boolean vehicleExist = vehicleJPARepository.existsById(vehicleId);
         if(!vehicleExist){
             log.warn("Vehicle with ID: {} not exists", vehicleId);
 //            throw new VehicleNotFoundException("vehicle with id " + vehicleId + " not exists");
         }
         log.info("Vehicle with ID: {} deleted", vehicleId);
-        vehicleRepository.deleteById(vehicleId);
+        vehicleJPARepository.deleteById(vehicleId);
     }
 
 }
