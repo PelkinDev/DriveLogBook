@@ -42,7 +42,6 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     public void addNewVehicle(VehicleEntity vehicle){
-        VehicleValidation.valideVehicle(vehicle);
         Optional<VehicleEntity> vehicleOptional = vehicleRepository.findVehicleByCarLicensePlate(vehicle.getCarLicensePlate());
         if(vehicleOptional.isPresent()){
             log.error("the vehicle with this license plate already exists: {}", vehicle.getCarLicensePlate());
@@ -55,7 +54,6 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     public VehicleEntity partialUpdate(Long id, VehicleEntity vehicleEntity){
         vehicleEntity.setId(id);
-        VehicleValidation.valideVehicle(vehicleEntity);
 
         return vehicleRepository.findById(id).map(existingVehicle -> {
             Optional.ofNullable(vehicleEntity.getCarLicensePlate()).ifPresent((existingVehicle::setCarLicensePlate));
