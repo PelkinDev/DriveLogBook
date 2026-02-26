@@ -41,7 +41,7 @@ public class VehicleValidationsTests {
             VehicleValidator.validate(testVehicleA);
             fail();
         } catch (VehicleValidateException e){
-            assertThat("Car plate must be defienied").isEqualTo(e.getMessage());
+            assertThat("Car plate must be defined").isEqualTo(e.getMessage());
         }
     }
 
@@ -52,7 +52,7 @@ public class VehicleValidationsTests {
             VehicleValidator.validate(testVehicleA);
             fail();
         } catch (VehicleValidateException e){
-            assertThat("Car plate must be defienied").isEqualTo(e.getMessage());
+            assertThat("Car plate must be defined").isEqualTo(e.getMessage());
         }
     }
 
@@ -155,6 +155,7 @@ public class VehicleValidationsTests {
         }
     }
 
+    @Test
     public void testValidateCarColorNotNull(){
         testVehicleA.setCarColor(null);
         try {
