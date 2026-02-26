@@ -3,7 +3,7 @@ package com.xomstudio.DriveLogBook.infrastructure;
 
 import com.xomstudio.DriveLogBook.api.VehicleRepository;
 import com.xomstudio.DriveLogBook.domain.Fuel;
-import com.xomstudio.DriveLogBook.infrastructure.entity.VehicleEntity;
+import com.xomstudio.DriveLogBook.infrastructure.persistance.VehicleEntity;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

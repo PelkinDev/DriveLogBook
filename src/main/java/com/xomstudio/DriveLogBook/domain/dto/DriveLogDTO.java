@@ -1,7 +1,7 @@
 package com.xomstudio.DriveLogBook.domain.dto;
 
 import com.xomstudio.DriveLogBook.domain.Trip;
-import com.xomstudio.DriveLogBook.infrastructure.entity.VehicleEntity;
+import com.xomstudio.DriveLogBook.infrastructure.persistance.VehicleEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

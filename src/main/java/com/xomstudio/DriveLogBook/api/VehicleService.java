@@ -1,6 +1,6 @@
 package com.xomstudio.DriveLogBook.api;
 
-import com.xomstudio.DriveLogBook.infrastructure.entity.VehicleEntity;
+import com.xomstudio.DriveLogBook.infrastructure.persistance.VehicleEntity;
 
 import java.util.List;
 import java.util.Optional;

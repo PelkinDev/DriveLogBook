@@ -1,4 +1,4 @@
-package com.xomstudio.DriveLogBook.infrastructure.entity;
+package com.xomstudio.DriveLogBook.infrastructure.persistance;
 
 import com.xomstudio.DriveLogBook.domain.Trip;
 import jakarta.persistence.*;

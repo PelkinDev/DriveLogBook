@@ -1,7 +1,7 @@
 package com.xomstudio.DriveLogBook.domain.dto;
 
 import com.xomstudio.DriveLogBook.api.Mapper;
-import com.xomstudio.DriveLogBook.infrastructure.entity.DriveLogEntity;
+import com.xomstudio.DriveLogBook.infrastructure.persistance.DriveLogEntity;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 

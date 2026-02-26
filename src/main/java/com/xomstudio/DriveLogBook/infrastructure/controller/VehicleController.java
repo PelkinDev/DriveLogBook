@@ -3,7 +3,7 @@ package com.xomstudio.DriveLogBook.infrastructure.controller;
 import com.xomstudio.DriveLogBook.infrastructure.VehicleServiceImpl;
 import com.xomstudio.DriveLogBook.domain.dto.VehicleDTO;
 import com.xomstudio.DriveLogBook.api.Mapper;
-import com.xomstudio.DriveLogBook.infrastructure.entity.VehicleEntity;
+import com.xomstudio.DriveLogBook.infrastructure.persistance.VehicleEntity;
 import com.xomstudio.DriveLogBook.infrastructure.exceptions.VehicleNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

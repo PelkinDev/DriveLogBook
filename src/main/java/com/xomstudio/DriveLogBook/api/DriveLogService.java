@@ -1,6 +1,6 @@
 package com.xomstudio.DriveLogBook.api;
 
-import com.xomstudio.DriveLogBook.infrastructure.entity.DriveLogEntity;
+import com.xomstudio.DriveLogBook.infrastructure.persistance.DriveLogEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
