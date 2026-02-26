@@ -8,13 +8,9 @@ import java.util.List;
 public interface DriveLogService {
 
     boolean isExists(Long id);
-
     List<DriveLogEntity> getDriveLogs();
-
-    public List<DriveLogEntity> getAllDriveLogsFromOneVehicle(@PathVariable("vehicleId") Long vehicleId);
-
+    List<DriveLogEntity> getAllDriveLogsFromOneVehicle(@PathVariable("vehicleId") Long vehicleId);
     void addNewDriveLog(DriveLogEntity driveLogEntity);
-
 //    Drive Log should not be deletable
     void deleteDriveLog(Long id);
 
