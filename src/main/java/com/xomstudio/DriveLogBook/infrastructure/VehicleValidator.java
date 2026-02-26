@@ -1,29 +1,27 @@
 package com.xomstudio.DriveLogBook.infrastructure;
 
-import com.xomstudio.DriveLogBook.domain.Fuel;
-import com.xomstudio.DriveLogBook.infrastructure.entity.VehicleEntity;
+import com.xomstudio.DriveLogBook.domain.dto.VehicleDTO;
 import com.xomstudio.DriveLogBook.infrastructure.exceptions.VehicleValidateException;
 
 import java.time.LocalDate;
 
-public class VehicleValidation {
+public class VehicleValidator {
 
-    public static void valideVehicle(VehicleEntity vehicleEntity){
-        valideteCarPlate(vehicleEntity.getCarLicensePlate());
-        validateFirstRegistration(vehicleEntity.getFirstRegistration());
-        validateMileage(vehicleEntity.getMileage());
-        validateVin(vehicleEntity.getVin());
-        validateCarBrand(vehicleEntity.getCarBrand());
-        validateCarModel(vehicleEntity.getCarModel());
-        validateCarColor(vehicleEntity.getCarColor());
-        validateEnginePower(vehicleEntity.getEnginePower());
-        validatePetrol(vehicleEntity.getPetrol());
+    public static void validate(VehicleDTO vehicleDto){
+        validateCarPlate(vehicleDto.getCarLicensePlate());
+        validateFirstRegistration(vehicleDto.getFirstRegistration());
+        validateMileage(vehicleDto.getMileage());
+        validateVin(vehicleDto.getVin());
+        validateCarBrand(vehicleDto.getCarBrand());
+        validateCarModel(vehicleDto.getCarModel());
+        validateCarColor(vehicleDto.getCarColor());
+        validateEnginePower(vehicleDto.getEnginePower());
     }
 
 
-    private static void valideteCarPlate(String carPlate){
+    private static void validateCarPlate(String carPlate){
         if(carPlate == null || carPlate.isBlank()){
-            throw new VehicleValidateException("Car plate must be defienied");
+            throw new VehicleValidateException("Car plate must be defined");
         }
     }
 
@@ -70,12 +68,6 @@ public class VehicleValidation {
     private static void validateEnginePower(int enginePower){
         if(enginePower < 1){
             throw new VehicleValidateException("Engine power must be bigger than 0");
-        }
-    }
-
-    private static void validatePetrol(Fuel fuel){
-        if(!(fuel == Fuel.GASOLINE || fuel == Fuel.DIESEL ||fuel == Fuel.ELECTRIC)){
-            throw new VehicleValidateException("Fuel false");
         }
     }
 
