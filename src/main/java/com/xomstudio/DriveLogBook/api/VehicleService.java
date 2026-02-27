@@ -1,6 +1,6 @@
 package com.xomstudio.DriveLogBook.api;
 
-import com.xomstudio.DriveLogBook.infrastructure.persistance.VehicleEntity;
+import com.xomstudio.DriveLogBook.domain.dto.VehicleDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -8,10 +8,10 @@ import java.util.Optional;
 public interface VehicleService {
 
     boolean isExists(Long id);
-    List<VehicleEntity> getVehicles();
-    Optional<VehicleEntity> getVehicleById(Long vehicleId);
-    void addNewVehicle(VehicleEntity vehicle);
-    VehicleEntity partialUpdate(Long id, VehicleEntity authorEntity);
+    List<VehicleDTO> getVehicles();
+    Optional<VehicleDTO> getVehicleById(Long vehicleId);
+    void addNewVehicle(VehicleDTO vehicle);
+    void partialUpdate(Long id, VehicleDTO vehicleDTO);
     void deleteVehicle(Long vehicleId);
 
 }

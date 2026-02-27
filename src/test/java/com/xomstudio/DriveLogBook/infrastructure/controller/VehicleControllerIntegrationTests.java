@@ -5,7 +5,6 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.xomstudio.DriveLogBook.api.VehicleService;
 import com.xomstudio.DriveLogBook.domain.Fuel;
 import com.xomstudio.DriveLogBook.domain.dto.VehicleDTO;
-import com.xomstudio.DriveLogBook.infrastructure.persistance.VehicleEntity;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,11 +27,11 @@ import java.time.Month;
 @AutoConfigureMockMvc
 public class VehicleControllerIntegrationTests {
 
-    private VehicleService vehicleService;
+    private final VehicleService vehicleService;
 
-    private MockMvc mockMvc;
+    private final MockMvc mockMvc;
 
-    private ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper;
 
 
     @Autowired
@@ -46,8 +45,8 @@ public class VehicleControllerIntegrationTests {
 
     @Test
     public void shouldCreateOneVehicle() throws Exception {
-        testVehicleEntityA.setId(null);
-        String vehicleJson = objectMapper.writeValueAsString(testVehicleEntityA);
+        testVehicleDtoA.setId(null);
+        String vehicleJson = objectMapper.writeValueAsString(testVehicleDtoA);
 
         mockMvc.perform(
                 MockMvcRequestBuilders.post("/api/v1/vehicles")
@@ -66,11 +65,11 @@ public class VehicleControllerIntegrationTests {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(vehicleJson)
         ).andExpect(
-                MockMvcResultMatchers.jsonPath("$.id").isNumber()
-        ).andExpect(
                 MockMvcResultMatchers.jsonPath("$.carLicensePlate").value("B-BB 888")
         ).andExpect(
                 MockMvcResultMatchers.jsonPath("$.mileage").value(16384)
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.enginePower").isNumber()
         );
     }
 
@@ -84,8 +83,9 @@ public class VehicleControllerIntegrationTests {
 
     @Test
     public void vehicleListReturnsListOfVehicles() throws Exception{
-        testVehicleEntityA.setId(null);
-        vehicleService.addNewVehicle(testVehicleEntityA);
+        testVehicleDtoB.setId(null);
+        vehicleService.addNewVehicle(testVehicleDtoB);
+
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/api/v1/vehicles")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -99,9 +99,10 @@ public class VehicleControllerIntegrationTests {
     }
 
     @Test
-    public void getVehicleReturnsHttp200IfExist() throws Exception{
-        testVehicleEntityA.setId(null);
-        vehicleService.addNewVehicle(testVehicleEntityA);
+    public void getVehiclesReturnsHttp200IfExist() throws Exception{
+        testVehicleDtoA.setId(null);
+        vehicleService.addNewVehicle(testVehicleDtoA);
+
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/api/v1/vehicles/1")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -110,12 +111,12 @@ public class VehicleControllerIntegrationTests {
 
     @Test
     public void partialUpdatedVehicleReturnsHttp200() throws Exception{
-        testVehicleEntityA.setId(null);
-        vehicleService.addNewVehicle(testVehicleEntityA);
-        String vehicleJson = objectMapper.writeValueAsString(testVehicleDtoA);
+        testVehicleDtoA.setId(null);
+        vehicleService.addNewVehicle(testVehicleDtoA);
+        String vehicleJson = objectMapper.writeValueAsString(testVehicleDtoB);
 
         mockMvc.perform(
-                MockMvcRequestBuilders.patch("/api/v1/vehicles/" + testVehicleEntityA.getId())
+                MockMvcRequestBuilders.patch("/api/v1/vehicles/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(vehicleJson)
         ).andExpect(MockMvcResultMatchers.status().isOk());
@@ -123,28 +124,25 @@ public class VehicleControllerIntegrationTests {
 
     @Test
     public void partialUpdateUpdatedVehicle() throws Exception{
-        testVehicleEntityA.setId(null);
-        vehicleService.addNewVehicle(testVehicleEntityA);
-        testVehicleDtoA.setId(testVehicleEntityA.getId());
-
-        String vehicleDtoUpJson = objectMapper.writeValueAsString(testVehicleDtoA);
+        testVehicleDtoA.setId(null);
+        vehicleService.addNewVehicle(testVehicleDtoA);
+        String vehicleDtoUpJson = objectMapper.writeValueAsString(testVehicleDtoB);
 
         mockMvc.perform(
-                MockMvcRequestBuilders.patch("/api/v1/vehicles/" + testVehicleEntityA.getId())
+                MockMvcRequestBuilders.patch("/api/v1/vehicles/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(vehicleDtoUpJson)
         ).andExpect(
-                MockMvcResultMatchers.jsonPath("$.id").value(testVehicleEntityA.getId())
+                MockMvcResultMatchers.jsonPath("$.id").value(testVehicleDtoB.getId())
         ).andExpect(
-                MockMvcResultMatchers.jsonPath("$.carLicensePlate").value(testVehicleDtoA.getCarLicensePlate())
+                MockMvcResultMatchers.jsonPath("$.carLicensePlate").value(testVehicleDtoB.getCarLicensePlate())
         ).andExpect(
-                MockMvcResultMatchers.jsonPath("$.mileage").value(testVehicleDtoA.getMileage())
+                MockMvcResultMatchers.jsonPath("$.mileage").value(testVehicleDtoB.getMileage())
         );
-
     }
 
 
-    private VehicleDTO testVehicleDtoA = VehicleDTO.builder()
+    private final VehicleDTO testVehicleDtoA = VehicleDTO.builder()
             .id(1L)
             .carLicensePlate("B-BB 888")
             .firstRegistration(LocalDate.of(2025, Month.FEBRUARY, 22))
@@ -157,7 +155,7 @@ public class VehicleControllerIntegrationTests {
             .petrol(Fuel.GASOLINE)
             .build();
 
-    private VehicleEntity testVehicleEntityA = VehicleEntity.builder()
+    private final VehicleDTO testVehicleDtoB = VehicleDTO.builder()
             .id(1L)
             .carLicensePlate("Z-ZZ 111")
             .firstRegistration(LocalDate.of(2015, Month.JUNE, 12))
@@ -169,19 +167,5 @@ public class VehicleControllerIntegrationTests {
             .enginePower(299)
             .petrol(Fuel.GASOLINE)
             .build();
-
-    private VehicleEntity testVehicleEntityB = VehicleEntity.builder()
-            .id(1L)
-            .carLicensePlate("X-XX 777")
-            .firstRegistration(LocalDate.of(1999, Month.JUNE, 22))
-            .mileage(8192)
-            .vin("Renault VIN")
-            .carBrand("Renault")
-            .carModel("Megane")
-            .carColor("Red")
-            .enginePower(115)
-            .petrol(Fuel.GASOLINE)
-            .build();
-
 
 }

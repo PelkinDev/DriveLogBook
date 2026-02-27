@@ -1,17 +1,10 @@
 package com.xomstudio.DriveLogBook.api;
 
-import com.xomstudio.DriveLogBook.infrastructure.persistance.VehicleEntity;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import com.xomstudio.DriveLogBook.domain.dto.VehicleDTO;
 
 import java.util.Optional;
 
-@Repository
-public interface VehicleRepository extends JpaRepository<VehicleEntity, Long> {
+public interface VehicleRepository {
 
-//        @Query("SELECT s FROM Vehicle s WHERE s.carLicensePlate = ?1")
-    Optional<VehicleEntity> findVehicleByCarLicensePlate(String carLicensePlate);
-
-
-
+    Optional<VehicleDTO> getVehicleByCarLicensePlate(String carLicensePlate);
 }
