@@ -1,6 +1,6 @@
 package com.xomstudio.DriveLogBook.infrastructure.exceptions;
 
-public class ValidateException extends RuntimeException{
+public class ValidateException extends DriveLogBookException{
 
     public ValidateException() {
         super();

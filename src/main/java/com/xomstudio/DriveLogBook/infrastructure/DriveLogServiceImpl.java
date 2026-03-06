@@ -1,10 +1,10 @@
 package com.xomstudio.DriveLogBook.infrastructure;
 
+import com.xomstudio.DriveLogBook.infrastructure.exceptions.VehicleNotFoundBookException;
 import com.xomstudio.DriveLogBook.infrastructure.persistance.DriveLogJPARepository;
 import com.xomstudio.DriveLogBook.api.DriveLogService;
 import com.xomstudio.DriveLogBook.infrastructure.persistance.VehicleJPARepository;
 import com.xomstudio.DriveLogBook.infrastructure.persistance.DriveLogEntity;
-import com.xomstudio.DriveLogBook.infrastructure.exceptions.VehicleNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,7 +43,7 @@ public class DriveLogServiceImpl implements DriveLogService {
         boolean vehicleOptional = vehicleJPARepository.existsById(driveLogEntity.getVehicleEntity().getId());
         if(!vehicleOptional){
             log.warn("vehicle with ID: {} not exists", driveLogEntity.getVehicleEntity().getId());
-            throw new VehicleNotFoundException("vehicle with id " + driveLogEntity.getVehicleEntity().getId() + " not exists");
+            throw new VehicleNotFoundBookException("vehicle with id " + driveLogEntity.getVehicleEntity().getId() + " not exists");
         }
         log.info("new drive log was created.");
         driveLogJPARepository.save(driveLogEntity);
