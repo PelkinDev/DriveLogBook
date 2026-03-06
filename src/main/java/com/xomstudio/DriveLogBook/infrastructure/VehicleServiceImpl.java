@@ -44,18 +44,20 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public void addNewVehicle(VehicleDTO vehicle) {
-        Optional<VehicleDTO> vehicleOptional = vehicleRepositoryAdapter.getVehicleByCarPlate(vehicle.getCarLicensePlate());
+    public void addNewVehicle(VehicleDTO vehicleDTO) {
+        VehicleValidator.validate(vehicleDTO);
+        Optional<VehicleDTO> vehicleOptional = vehicleRepositoryAdapter.getVehicleByCarLicensePlate(vehicleDTO.getCarLicensePlate());
         if(vehicleOptional.isPresent()){
-            log.error("the vehicle with this license plate already exists: {}", vehicle.getCarLicensePlate());
-            throw new VehicleCantBeCreatedException("the vehicle with " + vehicle.getCarLicensePlate() + " license plate already exists");
+            log.error("the vehicleDTO with this license plate already exists: {}", vehicleDTO.getCarLicensePlate());
+            throw new VehicleCantBeCreatedException("the vehicleDTO with " + vehicleDTO.getCarLicensePlate() + " license plate already exists");
         }
-        log.info("new vehicle was created: {}", vehicle.getCarLicensePlate());
-        vehicleRepositoryAdapter.store(vehicle);
+        log.info("new vehicleDTO was created: {}", vehicleDTO.getCarLicensePlate());
+        vehicleRepositoryAdapter.store(vehicleDTO);
     }
 
     @Override
     public void partialUpdate(Long id, VehicleDTO vehicleDTO) {
+        VehicleValidator.validate(vehicleDTO);
         if(!vehicleRepositoryAdapter.existsById(id)){
             throw new VehicleNotFoundException("vehicle with id " + id + " not exists");
         }

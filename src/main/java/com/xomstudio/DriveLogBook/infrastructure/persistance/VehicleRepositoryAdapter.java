@@ -1,8 +1,8 @@
 package com.xomstudio.DriveLogBook.infrastructure.persistance;
 
 import com.xomstudio.DriveLogBook.api.Mapper;
+import com.xomstudio.DriveLogBook.api.VehicleRepository;
 import com.xomstudio.DriveLogBook.domain.dto.VehicleDTO;
-import com.xomstudio.DriveLogBook.infrastructure.VehicleValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +11,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
-public class VehicleRepositoryAdapter {
+public class VehicleRepositoryAdapter implements VehicleRepository {
 
     private final VehicleJPARepository vehicleJPARepository;
     private final Mapper<VehicleEntity, VehicleDTO> mapper;
@@ -27,7 +27,7 @@ public class VehicleRepositoryAdapter {
         return vehicleJPARepository.existsById(id);
     }
 
-    public Optional<VehicleDTO> getVehicleByCarPlate(String carPlate){
+    public Optional<VehicleDTO> getVehicleByCarLicensePlate(String carPlate){
         return vehicleJPARepository.findVehicleByCarLicensePlate(carPlate).map(mapper::mapFromEntityToDTO);
     }
 
@@ -43,12 +43,10 @@ public class VehicleRepositoryAdapter {
     }
 
     public void store(VehicleDTO vehicleDTO) {
-        VehicleValidator.validate(vehicleDTO);
         vehicleJPARepository.save(mapper.mapFromDTOToEntity(vehicleDTO));
     }
 
     public void partialUpdate(Long id, VehicleDTO vehicleDTO){
-        VehicleValidator.validate(vehicleDTO);
         vehicleDTO.setId(id);
         VehicleEntity updatedVehicle = mapper.mapFromDTOToEntity(vehicleDTO);
         vehicleJPARepository.save(updatedVehicle);
