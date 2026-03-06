@@ -20,7 +20,7 @@ public class DriveLogDTO {
     private LocalDateTime driveEnd;
     private int mileageAtStart;
     private int mileageAtEnd;
-    private int kilometersDriven;
+    private int distanceDriven;
     private Trip trip;
     private VehicleEntity vehicleEntity;
 
