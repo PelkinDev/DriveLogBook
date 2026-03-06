@@ -6,10 +6,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 @Component
-public class VehicleMapperImpl implements Mapper<VehicleEntity, VehicleDTO> {
+public class VehicleMapper implements Mapper<VehicleEntity, VehicleDTO> {
     private ModelMapper modelMapper;
 
-    public VehicleMapperImpl(ModelMapper modelMapper) {
+    public VehicleMapper(ModelMapper modelMapper) {
         this.modelMapper = modelMapper;
     }
 

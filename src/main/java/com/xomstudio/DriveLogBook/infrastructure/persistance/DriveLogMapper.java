@@ -2,15 +2,14 @@ package com.xomstudio.DriveLogBook.infrastructure.persistance;
 
 import com.xomstudio.DriveLogBook.api.Mapper;
 import com.xomstudio.DriveLogBook.domain.dto.DriveLogDTO;
-import com.xomstudio.DriveLogBook.infrastructure.persistance.DriveLogEntity;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DriveLogMapperImpl implements Mapper<DriveLogEntity, DriveLogDTO> {
+public class DriveLogMapper implements Mapper<DriveLogEntity, DriveLogDTO> {
     private ModelMapper modelMapper;
 
-    public DriveLogMapperImpl(ModelMapper modelMapper) {
+    public DriveLogMapper(ModelMapper modelMapper) {
         this.modelMapper = modelMapper;
     }
 
