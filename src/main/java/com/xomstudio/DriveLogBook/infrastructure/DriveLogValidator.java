@@ -14,7 +14,7 @@ public class DriveLogValidator {
     }
 
     private static void validateDriveStart(LocalDateTime driveStart){
-        if(driveStart == null ){
+        if(driveStart == null || driveStart.toString().isBlank()){
             throw new DriveLogValidateException("DriveStart can not be null or empty");
         }
         LocalDateTime now = LocalDateTime.now();

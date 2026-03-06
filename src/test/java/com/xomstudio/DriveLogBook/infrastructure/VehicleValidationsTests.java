@@ -1,12 +1,10 @@
 package com.xomstudio.DriveLogBook.infrastructure;
 
-import com.xomstudio.DriveLogBook.infrastructure.persistance.VehicleJPARepository;
 import com.xomstudio.DriveLogBook.domain.Fuel;
 import com.xomstudio.DriveLogBook.domain.dto.VehicleDTO;
 import com.xomstudio.DriveLogBook.infrastructure.exceptions.VehicleValidateException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -20,13 +18,6 @@ import static org.assertj.core.api.Assertions.fail;
 @ExtendWith(SpringExtension.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class VehicleValidationsTests {
-
-    private VehicleJPARepository underTest;
-
-    @Autowired
-    public VehicleValidationsTests(VehicleJPARepository underTest) {
-        this.underTest = underTest;
-    }
 
 
     @Test
@@ -189,7 +180,7 @@ public class VehicleValidationsTests {
     }
 
 
-    private VehicleDTO testVehicleA = VehicleDTO.builder()
+    private final VehicleDTO testVehicleA = VehicleDTO.builder()
             .id(1L)
             .carLicensePlate("Z-ZZ 111")
             .firstRegistration(LocalDate.of(2015, Month.JUNE, 12))
