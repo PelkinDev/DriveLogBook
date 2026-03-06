@@ -4,7 +4,6 @@ import com.xomstudio.DriveLogBook.api.Mapper;
 import com.xomstudio.DriveLogBook.domain.dto.DriveLogDTO;
 import com.xomstudio.DriveLogBook.infrastructure.DriveLogServiceImpl;
 import com.xomstudio.DriveLogBook.infrastructure.persistance.DriveLogEntity;
-import com.xomstudio.DriveLogBook.infrastructure.persistance.VehicleEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,37 +30,20 @@ public class DriveLogController {
 
     @GetMapping(path = "/driveLogs")
     public List<DriveLogDTO> getDriveLogs(){
-        List<DriveLogEntity> driveLogs = driveLogServiceImpl.getDriveLogs();
-        return driveLogs.stream()
-                .map(mapper::mapFromEntityToDTO)
-                .collect(Collectors.toList());
+        List<DriveLogDTO> driveLogs = driveLogServiceImpl.getDriveLogs();
+        return driveLogs.stream().collect(Collectors.toList());
     }
 
     @GetMapping(path = "/vehicles/{vehicleId}/driveLogs")
     public List<DriveLogDTO> getAllDriveLogsFromOneVehicle(@PathVariable("vehicleId") Long vehicleId){
-        List<DriveLogEntity> driveLogs = driveLogServiceImpl.getAllDriveLogsFromOneVehicle(vehicleId);
-        return driveLogs.stream()
-                .map(mapper::mapFromEntityToDTO)
-                .collect(Collectors.toList());
+        List<DriveLogDTO> driveLogs = driveLogServiceImpl.getAllDriveLogsFromOneVehicle(vehicleId);
+        return driveLogs.stream().collect(Collectors.toList());
     }
-
-//    @PostMapping(path = "/driveLog")
-//    public ResponseEntity<DriveLogDTO> addNewDriveLog(@RequestBody DriveLogDTO driveLogDTO){
-//        DriveLogEntity driveLogEntity = mapper.mapFromDTOToEntity(driveLogDTO);
-//        driveLogServiceImpl.addNewDriveLog(driveLogEntity);
-//        return new ResponseEntity<>(mapper.mapFromEntityToDTO(driveLogEntity), HttpStatus.CREATED);
-//    }
 
     @PostMapping(path = "/vehicles/{vehicleId}/driveLogs")
     public ResponseEntity<DriveLogDTO> addNewDriveLog(@PathVariable("vehicleId") Long vehicleId, @RequestBody DriveLogDTO driveLogDTO){
-//        pathvariable to save right Key vehicle to drivelog
-        VehicleEntity vehicleEntity = driveLogDTO.getVehicleEntity();
-        vehicleEntity.setId(vehicleId);
-        driveLogDTO.setVehicleEntity(vehicleEntity);
-
-        DriveLogEntity driveLogEntity = mapper.mapFromDTOToEntity(driveLogDTO);
-        driveLogServiceImpl.addNewDriveLog(driveLogEntity);
-        return new ResponseEntity<>(mapper.mapFromEntityToDTO(driveLogEntity), HttpStatus.CREATED);
+        driveLogServiceImpl.addNewDriveLog(vehicleId, driveLogDTO);
+        return new ResponseEntity<>(driveLogDTO, HttpStatus.CREATED);
     }
 
 }

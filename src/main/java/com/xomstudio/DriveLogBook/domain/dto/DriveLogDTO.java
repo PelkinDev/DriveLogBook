@@ -22,6 +22,6 @@ public class DriveLogDTO {
     private int mileageAtEnd;
     private int distanceDriven;
     private Trip trip;
-    private VehicleEntity vehicleEntity;
+    private VehicleDTO vehicleDto;
 
 }
