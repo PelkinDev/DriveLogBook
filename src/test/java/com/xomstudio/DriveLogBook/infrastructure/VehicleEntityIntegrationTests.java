@@ -1,6 +1,5 @@
 package com.xomstudio.DriveLogBook.infrastructure;
 
-
 import com.xomstudio.DriveLogBook.infrastructure.persistance.VehicleJPARepository;
 import com.xomstudio.DriveLogBook.domain.Fuel;
 import com.xomstudio.DriveLogBook.infrastructure.persistance.VehicleEntity;
@@ -23,10 +22,12 @@ public class VehicleEntityIntegrationTests {
 
     private VehicleJPARepository underTest;
 
+
     @Autowired
     public VehicleEntityIntegrationTests(VehicleJPARepository underTest) {
         this.underTest = underTest;
     }
+
 
     @Test
     public void vehicleCanBeCreatedAndRecalled(){
@@ -36,7 +37,6 @@ public class VehicleEntityIntegrationTests {
         assertThat(result).isPresent();
         assertThat(result.get()).isEqualTo(testVehicleA);
     }
-
 
     @Test
     public void multipleVehiclesCanBeCreatedAndRecalled() {
@@ -61,7 +61,6 @@ public class VehicleEntityIntegrationTests {
         assertThat(result.get()).isEqualTo(testVehicleA);
 
     }
-
 
 
     private VehicleEntity testVehicleA = VehicleEntity.builder()

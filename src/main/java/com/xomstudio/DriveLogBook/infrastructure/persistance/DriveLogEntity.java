@@ -34,7 +34,7 @@ public class DriveLogEntity {
 
     private int mileageAtEnd;
 
-    private int kilometersDriven;
+    private int distanceDriven;
 
     private Trip trip;
 
