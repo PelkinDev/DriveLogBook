@@ -2,8 +2,8 @@ package com.xomstudio.DriveLogBook.infrastructure;
 
 import com.xomstudio.DriveLogBook.domain.dto.VehicleDTO;
 import com.xomstudio.DriveLogBook.api.VehicleService;
-import com.xomstudio.DriveLogBook.infrastructure.exceptions.VehicleCantBeCreatedBookException;
-import com.xomstudio.DriveLogBook.infrastructure.exceptions.VehicleNotFoundBookException;
+import com.xomstudio.DriveLogBook.infrastructure.exceptions.VehicleCantBeCreatedException;
+import com.xomstudio.DriveLogBook.infrastructure.exceptions.VehicleNotFoundException;
 import com.xomstudio.DriveLogBook.infrastructure.persistance.VehicleRepositoryAdapter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +38,7 @@ public class VehicleServiceImpl implements VehicleService {
         boolean vehicleOptional = vehicleRepositoryAdapter.existsById(vehicleId);
         if(!vehicleOptional){
             log.warn("vehicle with ID: {} not exists", vehicleId);
-            throw new VehicleNotFoundBookException("vehicle with id " + vehicleId + " not exists");
+            throw new VehicleNotFoundException("vehicle with id " + vehicleId + " not exists");
         }
         return vehicleRepositoryAdapter.getVehicleById(vehicleId);
     }
@@ -49,7 +49,7 @@ public class VehicleServiceImpl implements VehicleService {
         Optional<VehicleDTO> vehicleOptional = vehicleRepositoryAdapter.getVehicleByCarLicensePlate(vehicleDTO.getCarLicensePlate());
         if(vehicleOptional.isPresent()){
             log.error("the vehicleDTO with this license plate already exists: {}", vehicleDTO.getCarLicensePlate());
-            throw new VehicleCantBeCreatedBookException("the vehicleDTO with " + vehicleDTO.getCarLicensePlate() + " license plate already exists");
+            throw new VehicleCantBeCreatedException("the vehicleDTO with " + vehicleDTO.getCarLicensePlate() + " license plate already exists");
         }
         log.info("new vehicleDTO was created: {}", vehicleDTO.getCarLicensePlate());
         vehicleRepositoryAdapter.store(vehicleDTO);
@@ -59,7 +59,7 @@ public class VehicleServiceImpl implements VehicleService {
     public void partialUpdate(Long id, VehicleDTO vehicleDTO) {
         VehicleValidator.validate(vehicleDTO);
         if(!vehicleRepositoryAdapter.existsById(id)){
-            throw new VehicleNotFoundBookException("vehicle with id " + id + " not exists");
+            throw new VehicleNotFoundException("vehicle with id " + id + " not exists");
         }
         log.info("vehicle with id: {} updated", vehicleDTO.getId());
         vehicleRepositoryAdapter.partialUpdate(id, vehicleDTO);
@@ -70,7 +70,7 @@ public class VehicleServiceImpl implements VehicleService {
         boolean vehicleExist = vehicleRepositoryAdapter.existsById(vehicleId);
         if(!vehicleExist){
             log.warn("Vehicle with ID: {} not exists", vehicleId);
-            throw new VehicleNotFoundBookException("vehicle with id " + vehicleId + " not exists");
+            throw new VehicleNotFoundException("vehicle with id " + vehicleId + " not exists");
         }
         log.info("Vehicle with ID: {} deleted", vehicleId);
         vehicleRepositoryAdapter.deleteById(vehicleId);
